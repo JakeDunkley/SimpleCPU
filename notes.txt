@@ -1,0 +1,41 @@
+40-bit words are stored in RAM
+16-bit words are used for A/L operations
+
+# Example RAM entry for 'MOV $13 A'
+
+1000111000000000000011010000000000000010
+
+ OP  M?  DATA_A          DATA_B
+┌──┐┌──┐┌──────────────┐┌──────────────┐
+1000111000000000000011010000000000000010
+
+OP_CODE-MEMORY_FLAGS-DATA_A-DATA_B
+
+Operation Codes
+
+0000 |     |  empty
+0001 | --- |  N/A
+0010 | --- |  N/A
+0011 | AND |  and
+0100 | NOR |  nor
+0101 | XOR |  xor
+0110 | HLT |  halt
+0111 | --- |  N/A
+1000 | MOV |  move
+1001 | ADD |  add
+1010 | JMP |  jump unconditional
+1011 | SUB |  sub
+1100 | JEZ |  jump equal zero
+1101 | JLZ |  jump less than zero
+1110 | JGZ |  jump greater than zero
+1111 | JNZ |  jump not zero
+
+Memory Flags
+
+00 | Data
+01 | N/A
+10 | Register
+11 | RAM
+
+# Example memory flags for RAM + Register
+1110
