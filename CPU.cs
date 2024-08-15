@@ -20,56 +20,56 @@ public static class CPU
 
     public static OperationWord Accumulator
     {
-        get => _programCounter;
-        set => _programCounter = value;
+        get => _accumulator;
+        set => _accumulator = value;
     }
 
     public static OperationWord RegisterA
     {
-        get => _programCounter;
-        set => _programCounter = value;
+        get => _registerA;
+        set => _registerA = value;
     }
 
     public static OperationWord RegisterB
     {
-        get => _programCounter;
-        set => _programCounter = value;
+        get => _registerB;
+        set => _registerB = value;
     }
 
     public static OperationWord RegisterC
     {
-        get => _programCounter;
-        set => _programCounter = value;
+        get => _registerC;
+        set => _registerC = value;
     }
 
     public static OperationWord RegisterD
     {
-        get => _programCounter;
-        set => _programCounter = value;
+        get => _registerD;
+        set => _registerD = value;
     }
 
     public static OperationWord RegisterE
     {
-        get => _programCounter;
-        set => _programCounter = value;
+        get => _registerE;
+        set => _registerE = value;
     }
 
     public static OperationWord RegisterF
     {
-        get => _programCounter;
-        set => _programCounter = value;
+        get => _registerF;
+        set => _registerF = value;
     }
 
     public static OperationWord RegisterG
     {
-        get => _programCounter;
-        set => _programCounter = value;
+        get => _registerG;
+        set => _registerG = value;
     }
 
     public static OperationWord RegisterH
     {
-        get => _programCounter;
-        set => _programCounter = value;
+        get => _registerH;
+        set => _registerH = value;
     }
 
     public static MemoryModule RAM

@@ -18,7 +18,7 @@ public abstract class Word
 
     public override string ToString()
     {
-        StringBuilder stringBuilder = new StringBuilder(40);
+        StringBuilder stringBuilder = new StringBuilder(_bits.Length);
 
         foreach (bool bit in _bits)
         {
