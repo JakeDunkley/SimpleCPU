@@ -7,7 +7,7 @@ using System.Text;
 public class Word
 {
 
-    private const int _length = 32;
+    private static readonly int _length = 32;
     private BitArray _bits;
 
     public Word()
@@ -96,5 +96,65 @@ public class Word
         }
 
         return sum;
+    }
+
+    public static Word operator -(Word a, Word b)
+    {
+        Word notB = !b;
+
+        Word one = new();
+        one[0] = true;
+
+        notB += one;
+
+        return a + notB;
+    }
+
+    public static Word operator !(Word word)
+    {
+        Word result = new();
+
+        for (int i = 0; i < _length; i++)
+        {
+            result[i] = !word[i];
+        }
+
+        return result;
+    }
+
+    public static Word operator &(Word a, Word b)
+    {
+        Word result = new();
+
+        for (int i = 0; i < _length; i++)
+        {
+            result[i] = a[i] & b[i];
+        }
+
+        return result;
+    }
+
+    public static Word operator |(Word a, Word b)
+    {
+        Word result = new();
+
+        for (int i = 0; i < _length; i++)
+        {
+            result[i] = a[i] | b[i];
+        }
+
+        return result;
+    }
+
+    public static Word operator ^(Word a, Word b)
+    {
+        Word result = new();
+
+        for (int i = 0; i < _length; i++)
+        {
+            result[i] = a[i] ^ b[i];
+        }
+
+        return result;
     }
 }
