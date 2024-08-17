@@ -1,14 +1,21 @@
 using System.Collections;
 using System.Text;
 
+/// <summary>
+/// Represents a 32-bit word
+/// </summary>
 public class Word
 {
+
+    private const int _length = 32;
     private BitArray _bits;
 
     public Word()
     {
-        _bits = new BitArray(32);
+        _bits = new BitArray(_length);
     }
+
+    public int Length => _length;
 
     public BitArray Bits
     {
@@ -18,11 +25,11 @@ public class Word
 
     public override string ToString()
     {
-        StringBuilder stringBuilder = new StringBuilder(_bits.Length);
+        StringBuilder stringBuilder = new StringBuilder(_length);
 
-        foreach (bool bit in _bits)
+        for (int i = _length - 1; i >= 0; i--)
         {
-            stringBuilder.Append($"{(bit ? 1 : 0)}");
+            stringBuilder.Append(this[i] ? 1 : 0);
         }
 
         return stringBuilder.ToString();
@@ -41,49 +48,53 @@ public class Word
         return result;
     }
 
-    public BitArray OpBits
-    {
-        get
-        {
-            BitArray opBits = new(4);
-
-            for (int i = 0; i < 4; i++)
-            {
-                opBits.Set(i, _bits.Get(i));
-            }
-
-            return opBits;
-        }
-    }
-
-    public BitArray DataBits
-    {
-        get
-        {
-            BitArray dataBits = new(_bits.Length - 4);
-
-            for (int i = 4; i < _bits.Length; i++)
-            {
-                dataBits.Set(i, _bits.Get(i));
-            }
-
-            return dataBits;
-        }
-    }
-
+    /// <summary>
+    /// Create word from the segment of the word containing literal or address values
+    /// </summary>
     public Word DataAsWord
     {
         get
         {
-            BitArray paddedDataBits = new(_bits.Length);
-            BitArray dataBits = DataBits;
+            Word data = new();
 
-            for (int i = 4; i < _bits.Length; i++)
+            for (int i = 4; i < _length; i++)
             {
-                paddedDataBits.Set(i, dataBits.Get(i));
+                data[i] = this[i];
             }
 
-            return new Word(){Bits = paddedDataBits};
+            return data;
         }
+    }
+
+    public bool this[int index]
+    {
+        get => _bits[_length - 1 - index];
+        set => _bits[_length - 1 - index] = value;
+    }
+
+    public static Word operator +(Word a, Word b)
+    {
+        Word sum = new();
+
+        bool carryBit = false;
+
+        for(int i = 0; i < _length; i++)
+        {
+            int total = (a[i] ? 1 : 0) + (b[i] ? 1 : 0) + (carryBit ? 1 : 0);
+
+            if (total < 2)
+            {
+                sum[i] = total > 0;
+                carryBit = false;
+            }
+
+            else
+            {
+                sum[i] = total == 3;
+                carryBit = true;
+            }
+        }
+
+        return sum;
     }
 }

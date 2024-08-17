@@ -1,16 +1,30 @@
 public static class CPU
 {
-    private static Word _programCounter = new Word();
-    private static Word _accumulator    = new Word();
-    private static Word _registerA      = new Word();
-    private static Word _registerB      = new Word();
-    private static Word _registerC      = new Word();
-    private static Word _registerD      = new Word();
-    private static Word _registerE      = new Word();
-    private static Word _registerF      = new Word();
-    private static Word _registerG      = new Word();
-    private static Word _registerH      = new Word();
-    private static MemoryModule  _ram   = new MemoryModule(1024);
+    private static bool          _flagHalt        = false;
+    private static bool          _flagNoIncrement = false;
+    private static Word          _programCounter  = new();
+    private static Word          _accumulator     = new();
+    private static Word          _registerA       = new();
+    private static Word          _registerB       = new();
+    private static Word          _registerC       = new();
+    private static Word          _registerD       = new();
+    private static Word          _registerE       = new();
+    private static Word          _registerF       = new();
+    private static Word          _registerG       = new();
+    private static Word          _registerH       = new();
+    private static MemoryModule  _ram             = new(1024);
+
+    public static bool FlagHalt
+    {
+        get => _flagHalt;
+        set => _flagHalt = value;
+    }
+
+    public static bool FlagNoIncrement
+    {
+        get => _flagNoIncrement;
+        set => _flagNoIncrement = value;
+    }
 
     public static Word ProgramCounter
     {

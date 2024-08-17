@@ -1,18 +1,18 @@
 public class MemoryModule
 {
-    private MemoryWord[] _memory;
+    private Word[] _memory;
 
     public MemoryModule(int numWords)
     {
-        _memory = new MemoryWord[numWords];
+        _memory = new Word[numWords];
 
         for (int i = 0; i < numWords; i++)
         {
-            _memory[i] = new MemoryWord();
+            _memory[i] = new Word();
         }
     }
 
-    public MemoryWord[] Memory
+    public Word[] Memory
     {
         get => _memory;
         set => _memory = value;
