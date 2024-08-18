@@ -48,6 +48,19 @@ public class Word
         return result;
     }
 
+    public virtual uint ToUInt()
+    {
+        uint result = 0;
+
+        foreach (bool bit in _bits)
+        {
+            result <<= 1;
+            result += (uint) (bit ? 1 : 0);
+        }
+
+        return result;
+    }
+
     /// <summary>
     /// Create word from the segment of the word containing literal or address values
     /// </summary>

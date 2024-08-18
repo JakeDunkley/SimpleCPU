@@ -18,6 +18,12 @@ public class MemoryModule
         set => _memory = value;
     }
 
+    public Word this[int index]
+    {
+        get => _memory[index];
+        set => _memory[index] = value;
+    }
+
     public void Dump()
     {
         for (int i = 0; i < Memory.Length; i++)

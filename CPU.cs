@@ -91,4 +91,9 @@ public static class CPU
         get => _ram;
         set => _ram = value;
     }
+
+    public static void LoadProgram(string relativePath)
+    {
+        _ram = FileIngester.GenerateMemoryModule(FileIngester.GetLines(relativePath));
+    }
 }
