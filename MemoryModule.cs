@@ -24,9 +24,14 @@ public class MemoryModule
         set => _memory[index] = value;
     }
 
-    public void Dump()
+    public void Dump(int rangeStart = 0, int rangeEnd = 0)
     {
-        for (int i = 0; i < Memory.Length; i++)
+        if (rangeEnd == 0)
+        {
+            rangeEnd = Memory.Length;
+        }
+
+        for (int i = rangeStart; i < rangeEnd; i++)
         {
             Console.WriteLine($"{i:0000} | {Memory[i]}");
         }

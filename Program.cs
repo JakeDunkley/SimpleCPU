@@ -6,6 +6,8 @@ public class Program
     {
         CPU.LoadProgram("program.txt");
 
-        CPU.RAM.Dump();
+        CPU.Run();
+
+        CPU.DumpStatus();
     }
 }

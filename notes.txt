@@ -7,8 +7,8 @@
 
 0000 | LDI | load immediate 
 0001 | LDR | load register
-0010 | LDM | load memory
-0011 | SAV | sav accumulator
+0010 | MOV | move accumulator
+0011 | SAV | save accumulator
 0100 | ADD | add
 0101 | SUB | subtract
 0110 | NOT | not
@@ -24,8 +24,8 @@
 
 load_immediate         : LDI literal
 load_register          : LDR register
-load_memory            : LDM empty_literal + next_word
-save_accumulator       : SAV register
+move_accumulator       : MOV register
+save_accumulator       : SAV address
 add                    : ADD register
 subtract               : SUB register
 not                    : NOT empty_literal 

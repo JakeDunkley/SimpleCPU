@@ -1,18 +1,19 @@
 public static class CPU
 {
-    private static bool          _flagHalt        = false;
-    private static bool          _flagNoIncrement = false;
-    private static Word          _programCounter  = new();
-    private static Word          _accumulator     = new();
-    private static Word          _registerA       = new();
-    private static Word          _registerB       = new();
-    private static Word          _registerC       = new();
-    private static Word          _registerD       = new();
-    private static Word          _registerE       = new();
-    private static Word          _registerF       = new();
-    private static Word          _registerG       = new();
-    private static Word          _registerH       = new();
-    private static MemoryModule  _ram             = new(1024);
+    private static bool _flagHalt            = false;
+    private static bool _flagNoIncrement     = false;
+    private static bool _flagDoubleIncrement = false;
+    private static Word _programCounter = new();
+    private static Word _accumulator    = new();
+    private static Word _registerA      = new();
+    private static Word _registerB      = new();
+    private static Word _registerC      = new();
+    private static Word _registerD      = new();
+    private static Word _registerE      = new();
+    private static Word _registerF      = new();
+    private static Word _registerG      = new();
+    private static Word _registerH      = new();
+    private static MemoryModule _ram = new(1024);
 
     public static bool FlagHalt
     {
@@ -24,6 +25,12 @@ public static class CPU
     {
         get => _flagNoIncrement;
         set => _flagNoIncrement = value;
+    }
+
+    public static bool FlagDoubleIncrement
+    {
+        get => _flagDoubleIncrement;
+        set => _flagDoubleIncrement = value;
     }
 
     public static Word ProgramCounter
@@ -92,8 +99,46 @@ public static class CPU
         set => _ram = value;
     }
 
+    public static void DumpStatus()
+    {
+        Console.WriteLine($"FLAG Halt         | {(_flagHalt ? 1 : 0)}");
+        Console.WriteLine($"FLAG No Increment | {(_flagNoIncrement ? 1 : 0)}");
+        Console.WriteLine($"FLAG 2x Increment | {(_flagDoubleIncrement ? 1 : 0)}");
+        Console.WriteLine($"Program Counter   | {_programCounter}");
+        Console.WriteLine($"Accumulator       | {_accumulator}");
+        Console.WriteLine($"Register A        | {_registerA}");
+        Console.WriteLine($"Register B        | {_registerB}");
+        Console.WriteLine($"Register C        | {_registerC}");
+        Console.WriteLine($"Register D        | {_registerD}");
+        Console.WriteLine($"Register E        | {_registerE}");
+        Console.WriteLine($"Register F        | {_registerF}");
+        Console.WriteLine($"Register G        | {_registerG}");
+        Console.WriteLine($"Register H        | {_registerH}");
+    }
+
     public static void LoadProgram(string relativePath)
     {
         _ram = FileIngester.GenerateMemoryModule(FileIngester.GetLines(relativePath));
+    }
+
+    public static void Run()
+    {
+        while (!_flagHalt)
+        {
+            Decoder.Execute[RAM[_programCounter.ToInt()].OpCodeAsWord.ToUInt()](RAM[_programCounter.ToInt()]);
+
+            if (!_flagNoIncrement)
+            {
+                _programCounter += Word.One;
+            }
+
+            if (_flagDoubleIncrement)
+            {
+                _programCounter += Word.One;
+            }
+
+            _flagNoIncrement = false;
+            _flagDoubleIncrement = false;
+        }
     }
 }

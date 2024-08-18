@@ -61,6 +61,55 @@ public class Word
         return result;
     }
 
+    public Word Clone()
+    {
+        Word clone = new();
+
+        for (int i = 0; i < Length; i++)
+        {
+            clone[i] = this[i];
+        }
+
+        return clone;
+    }
+
+    public static Word Zero
+    {
+        get
+        {
+            return new Word();
+        }
+    }
+
+    public static Word One
+    {
+        get
+        {
+            Word one = new();
+            one[0] = true;
+
+            return one;
+        }
+    }
+
+    /// <summary>
+    /// Create word from the segment of the word containing the operation code.
+    /// </summary>
+    public Word OpCodeAsWord
+    {
+        get
+        {
+            Word opCode = new();
+
+            for (int i = 0; i < 4; i++)
+            {
+                opCode[_length - 1 - i] = this[_length - 1 - i];
+            }
+
+            return opCode;
+        }
+    }
+
     /// <summary>
     /// Create word from the segment of the word containing literal or address values
     /// </summary>
@@ -70,7 +119,7 @@ public class Word
         {
             Word data = new();
 
-            for (int i = 4; i < _length; i++)
+            for (int i = 0; i < _length - 4; i++)
             {
                 data[i] = this[i];
             }
@@ -115,10 +164,7 @@ public class Word
     {
         Word notB = !b;
 
-        Word one = new();
-        one[0] = true;
-
-        notB += one;
+        notB += One;
 
         return a + notB;
     }

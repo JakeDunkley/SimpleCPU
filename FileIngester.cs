@@ -12,7 +12,11 @@ public static class FileIngester
 
                 while (curLine != null)
                 {
-                    lines.Add(curLine);
+                    if (curLine != "" && curLine[0] != '#')
+                    {
+                        lines.Add(curLine);
+                    }
+
                     curLine = reader.ReadLine();
                 }
             }
@@ -20,7 +24,7 @@ public static class FileIngester
 
         catch (Exception e)
         {
-            Console.WriteLine($"Error reading input file \"relativePath\": {e}");
+            Console.WriteLine($"Error reading input file \"{relativePath}\": {e}");
         }
 
         return lines;
