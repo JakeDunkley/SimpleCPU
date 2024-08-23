@@ -1,4 +1,4 @@
-public static class FileIngester
+public static class FileHandler
 {
     public static List<string> GetLines(string relativePath)
     {
@@ -52,5 +52,24 @@ public static class FileIngester
         }
 
         return result;
+    }
+
+    public static void WriteLines(string programName, List<string> lines)
+    {
+        try
+        {
+            using (StreamWriter writer = new StreamWriter($"{programName}.txt"))
+            {
+                foreach (string line in lines)
+                {
+                    writer.WriteLine(line);
+                }
+            }
+        }
+
+        catch (Exception e)
+        {
+            Console.WriteLine($"Error writing to output file \"{programName}.txt\": {e}");
+        }
     }
 }

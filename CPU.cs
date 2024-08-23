@@ -118,7 +118,7 @@ public static class CPU
 
     public static void LoadProgram(string relativePath)
     {
-        _ram = FileIngester.GenerateMemoryModule(FileIngester.GetLines(relativePath));
+        _ram = FileHandler.GenerateMemoryModule(FileHandler.GetLines(relativePath));
     }
 
     public static void Run()
@@ -137,7 +137,28 @@ public static class CPU
                 _programCounter += Word.One;
             }
 
-            _flagNoIncrement = false;
+            _flagNoIncrement     = false;
+            _flagDoubleIncrement = false;
+        }
+    }
+
+    public static void Step()
+    {
+        if (!_flagHalt)
+        {
+            Decoder.Execute[RAM[_programCounter.ToInt()].OpCodeAsWord.ToUInt()](RAM[_programCounter.ToInt()]);
+
+            if (!_flagNoIncrement)
+            {
+                _programCounter += Word.One;
+            }
+
+            if (_flagDoubleIncrement)
+            {
+                _programCounter += Word.One;
+            }
+
+            _flagNoIncrement     = false;
             _flagDoubleIncrement = false;
         }
     }

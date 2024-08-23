@@ -48,7 +48,19 @@ public static class Decoder
 
     public static void MoveAccumulator(Word word)
     {
-        RegisterLookup[word.DataAsWord.ToInt()] = CPU.Accumulator.Clone();
+        int register = word.DataAsWord.ToInt();
+
+        RegisterLookup[register] = CPU.Accumulator.Clone();
+
+        if (register == 6)
+        {
+            Console.WriteLine(RegisterLookup[register]);
+        }
+
+        else if (register == 7)
+        {
+            Console.WriteLine(RegisterLookup[register].ToInt());
+        }
     }
 
     public static void SaveAccumulator(Word word)
@@ -88,8 +100,7 @@ public static class Decoder
 
     public static void JumpUnconditional(Word word)
     {
-        CPU.ProgramCounter = word.DataAsWord;
-
+        CPU.ProgramCounter  = word.DataAsWord;
         CPU.FlagNoIncrement = true;
     }
 
@@ -97,40 +108,36 @@ public static class Decoder
     {
         if (CPU.Accumulator.ToInt() != 0)
         {
-            CPU.ProgramCounter = word.DataAsWord;
+            CPU.ProgramCounter  = word.DataAsWord;
+            CPU.FlagNoIncrement = true;
         }
-
-        CPU.FlagNoIncrement = true;
     }
 
     public static void JumpEqualZero(Word word)
     {
         if (CPU.Accumulator.ToInt() == 0)
         {
-            CPU.ProgramCounter = word.DataAsWord;
+            CPU.ProgramCounter  = word.DataAsWord;
+            CPU.FlagNoIncrement = true;
         }
-
-        CPU.FlagNoIncrement = true;
     }
 
     public static void JumpLessThanZero(Word word)
     {
         if (CPU.Accumulator.ToInt() < 0)
         {
-            CPU.ProgramCounter = word.DataAsWord;
+            CPU.ProgramCounter  = word.DataAsWord;
+            CPU.FlagNoIncrement = true;
         }
-
-        CPU.FlagNoIncrement = true;
     }
 
     public static void JumpGreaterThanZero(Word word)
     {
         if (CPU.Accumulator.ToInt() > 0)
         {
-            CPU.ProgramCounter = word.DataAsWord;
+            CPU.ProgramCounter  = word.DataAsWord;
+            CPU.FlagNoIncrement = true;
         }
-
-        CPU.FlagNoIncrement = true;
     }
 
     public static void Halt(Word word)

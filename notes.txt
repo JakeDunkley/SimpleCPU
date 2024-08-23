@@ -7,8 +7,8 @@
 
 0000 | LDI | load immediate 
 0001 | LDR | load register
-0010 | MOV | move accumulator
-0011 | SAV | save accumulator
+0010 | MOV | move accumulator to register
+0011 | SAV | save accumulator to memory
 0100 | ADD | add
 0101 | SUB | subtract
 0110 | NOT | not
